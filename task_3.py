@@ -106,7 +106,7 @@ while True:
             try:
                 sorted_products = sorted(products, key=lambda x: x['Цена'])
 
-                with open('sorted_products.csv', 'w', encoding='utf-8', newline='') as f:
+                with open('resource/sorted_products.csv', 'w', encoding='utf-8', newline='') as f:
                     titles = ['Название', 'Цена', 'Количество']
                     writer = csv.DictWriter(f, fieldnames=titles)
                     writer.writeheader()

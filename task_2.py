@@ -62,7 +62,7 @@ for s in students:
         filtered_students.append(s)
 
 try:
-    with open('result.txt', 'w', encoding='utf-8') as f:
+    with open('resource/result.txt', 'w', encoding='utf-8') as f:
         for s in filtered_students:
             f.write(f'{s['name']}: {s['average']:.2f}\n')
     if filtered_students:

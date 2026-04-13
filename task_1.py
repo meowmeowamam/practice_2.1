@@ -5,14 +5,14 @@ text = ['Сквозь тучи пробивает лучик света,',
          'He sends me greetings, wetting the glass with rain.']
 
 try:
-    with open('text.txt', 'w', encoding='utf-8') as file:
+    with open('resource/text.txt', 'w', encoding='utf-8') as file:
         for line in text:
             file.write(line + '\n')
     print('Файл "text.txt" успешно создан и заполнен 5 строками.')
 except Exception as e:
     print(f'Ошибка при создании файла: {e}')
 
-with open('text.txt', 'r', encoding='utf-8') as file:
+with open('resource/text.txt', 'r', encoding='utf-8') as file:
     lines = file.readlines()
 
 lines = [line.rstrip('\n') for line in lines]
