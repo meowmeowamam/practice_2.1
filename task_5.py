@@ -87,7 +87,14 @@ while True:
                 new_id = max(book['id'] for book in books) + 1
             
             available = input('Книга доступна? (да/нет): ').strip().lower()
-            available_status = available == 'да'
+            match available:
+                case 'да':
+                    available_status = True
+                case 'нет':
+                    available_status = False
+                case _:
+                    print('Некорректный выбор.')
+                    continue
             
             new_book = {'id':new_id,
                         'title':title,

@@ -74,50 +74,59 @@ while True:
             except ValueError:
                 print('Ошибка: цена и количество должны содержать только числа.')
         case '3':
-            print('\nПОИСК ТОВАРА')
-            name = input('Введите полное или часть названия товара для поиска: ').strip()
-            if not name:
-                print('Введите название для поиска.')
-                continue
-
-            found = []
-            for p in products:
-                if name.lower() in p['Название'].lower():
-                    found.append(p)
-
-            if found:
-                print(f'Найдено товаров: {len(found)}')
-                for p in found:
-                    print(f'\nНазвание: {p['Название']}')
-                    print(f'Цена: {p['Цена']} руб.')
-                    print(f'Количество: {p['Количество']} шт.')
-                    print(f'Общая стоимость: {p['Цена'] * p['Количество']} руб.')
+            if not products:
+                print('\nСписок товаров пуст.')
             else:
-                print(f'\nТовар по запросу "{name}" не найден.')
-        case '4':
-            print('\nОБЩАЯ СТОИМОСТЬ ТОВАРОВ НА СКЛАДЕ:')
-            total = 0
-            for p in products:
-                cost = p['Цена'] * p['Количество']
-                total += cost
-                print(f'{p['Название']}: {p['Цена']} руб. × {p['Количество']} шт. = {cost} руб.')
-            print(f'ИТОГО: {total} руб.')
-        case '5':
-            try:
-                sorted_products = sorted(products, key=lambda x: x['Цена'])
+                print('\nПОИСК ТОВАРА')
+                name = input('Введите полное или часть названия товара для поиска: ').strip()
+                if not name:
+                    print('Введите название для поиска.')
+                    continue
 
-                with open('resource/sorted_products.csv', 'w', encoding='utf-8', newline='') as f:
-                    titles = ['Название', 'Цена', 'Количество']
-                    writer = csv.DictWriter(f, fieldnames=titles)
-                    writer.writeheader()
-                    for p in sorted_products:
-                        writer.writerow({'Название':p['Название'],
-                                         'Цена':p['Цена'],
-                                         'Количество':p['Количество']})
-                        
-                print('\nОтсортированные продукты сохранены в "sorted_products.csv"')
-            except Exception as e:
-                print(f'\nОшибка при сохранении: {e}')
+                found = []
+                for p in products:
+                    if name.lower() in p['Название'].lower():
+                        found.append(p)
+
+                if found:
+                    print(f'Найдено товаров: {len(found)}')
+                    for p in found:
+                        print(f'\nНазвание: {p['Название']}')
+                        print(f'Цена: {p['Цена']} руб.')
+                        print(f'Количество: {p['Количество']} шт.')
+                        print(f'Общая стоимость: {p['Цена'] * p['Количество']} руб.')
+                else:
+                    print(f'\nТовар по запросу "{name}" не найден.')
+        case '4':
+            if not products:
+                print('\nСписок товаров пуст.')
+            else:
+                print('\nОБЩАЯ СТОИМОСТЬ ТОВАРОВ НА СКЛАДЕ:')
+                total = 0
+                for p in products:
+                    cost = p['Цена'] * p['Количество']
+                    total += cost
+                    print(f'{p['Название']}: {p['Цена']} руб. × {p['Количество']} шт. = {cost} руб.')
+                print(f'ИТОГО: {total} руб.')
+        case '5':
+            if not products:
+                print('\nСписок товаров пуст.')
+            else:
+                try:
+                    sorted_products = sorted(products, key=lambda x: x['Цена'])
+
+                    with open('resource/sorted_products.csv', 'w', encoding='utf-8', newline='') as f:
+                        titles = ['Название', 'Цена', 'Количество']
+                        writer = csv.DictWriter(f, fieldnames=titles)
+                        writer.writeheader()
+                        for p in sorted_products:
+                            writer.writerow({'Название':p['Название'],
+                                            'Цена':p['Цена'],
+                                            'Количество':p['Количество']})
+                            
+                    print('\nОтсортированные продукты сохранены в "sorted_products.csv"')
+                except Exception as e:
+                    print(f'\nОшибка при сохранении: {e}')
         case '6':
             try:
                 with open('resource/products.csv', 'w', encoding='utf-8', newline='') as f:
